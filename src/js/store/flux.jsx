@@ -1,3 +1,5 @@
+const API_BASE_URL = import.meta.env.VITE_API_URL;
+const API_KEY = import.meta.env.VITE_API_KEY;
 const getState = ({ getStore, getActions, setStore }) => {
   return {
     store: {
@@ -24,16 +26,13 @@ const getState = ({ getStore, getActions, setStore }) => {
       },
 
       getCategories: async () => {
-        const response = await fetch(
-          "https://technicalproof.lisdatasolutions.com/api/v1/recommender/category",
-          {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-              "X-API-KEY": "976fea5c-31ae-46f5-a670-54bbe426861a",
-            },
-          }
-        );
+        const response = await fetch(`${API_BASE_URL}category`, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            "X-API-KEY": `${API_KEY}`,
+          },
+        });
         const data = await response.json();
         console.log(data);
         setStore({ categories: data });
@@ -48,12 +47,12 @@ const getState = ({ getStore, getActions, setStore }) => {
       getSubCategories: async () => {
         const store = getStore();
         const response = await fetch(
-          `https://technicalproof.lisdatasolutions.com/api/v1/recommender/category/${store.selectCategory}/subcategory`,
+          `${API_BASE_URL}category/${store.selectCategory}/subcategory`,
           {
             method: "GET",
             headers: {
               "Content-Type": "application/json",
-              "X-API-KEY": "976fea5c-31ae-46f5-a670-54bbe426861a",
+              "X-API-KEY": `${API_KEY}`,
             },
           }
         );
@@ -71,12 +70,12 @@ const getState = ({ getStore, getActions, setStore }) => {
       getColors: async () => {
         const store = getStore();
         const response = await fetch(
-          `https://technicalproof.lisdatasolutions.com/api/v1/recommender/subcategory/${store.selectSubcategory}/color`,
+          `${API_BASE_URL}subcategory/${store.selectSubcategory}/color`,
           {
             method: "GET",
             headers: {
               "Content-Type": "application/json",
-              "X-API-KEY": "976fea5c-31ae-46f5-a670-54bbe426861a",
+              "X-API-KEY": `${API_KEY}`,
             },
           }
         );
@@ -90,6 +89,7 @@ const getState = ({ getStore, getActions, setStore }) => {
       savedSelectedColor: (color) => {
         setStore({ selectColor: color });
       },
+
       doQueryConsult: () => {
         const store = getStore();
         query = {
@@ -100,6 +100,8 @@ const getState = ({ getStore, getActions, setStore }) => {
         queryString = new URLSearchParams(query).toString();
         setStore({ querySearch: queryString });
       },
+
+      getResult: async () => {},
     },
   };
 };
