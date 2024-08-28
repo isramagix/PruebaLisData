@@ -8,6 +8,7 @@ const getState = ({ getStore, getActions, setStore }) => {
       colors: [],
       selectColor: "",
       products: [],
+      querySearch: "",
     },
     actions: {
       resetStore: () => {
@@ -88,6 +89,16 @@ const getState = ({ getStore, getActions, setStore }) => {
 
       savedSelectedColor: (color) => {
         setStore({ selectColor: color });
+      },
+      doQueryConsult: () => {
+        const store = getStore();
+        query = {
+          id_category: store.selectCategory,
+          id_subcategory: store.selectSubcategory,
+          id_color: store.selectColor,
+        };
+        queryString = new URLSearchParams(query).toString();
+        setStore({ querySearch: queryString });
       },
     },
   };
