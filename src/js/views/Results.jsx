@@ -1,171 +1,165 @@
 import { useContext, useEffect, useState } from "react";
 import { Context } from "../store/AppContext";
+import { Filters } from "../components/Filters";
+import { ProductCard } from "../components/ProductCard";
+import { Pagination } from "../components/Pagination";
 
 export const Results = () => {
   const { store, actions } = useContext(Context);
-  const [minPrice, setMinPrice] = useState("");
-  const [maxPrice, setMaxPrice] = useState("");
+  const [selectedPriceRanges, setSelectedPriceRanges] = useState([]);
   const [freeShipping, setFreeShipping] = useState(false);
+  const [selectedRatings, setSelectedRatings] = useState([]);
+  const [selectedStockQuantities, setSelectedStockQuantities] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 10; // Número de productos por página
+  const [sortOrder, setSortOrder] = useState("rating");
+  const itemsPerPage = 12;
 
   useEffect(() => {
     actions.getResult();
-  }, [actions]);
+  }, []);
 
-  // Filtrar productos basados en los filtros aplicados
+  const parsePriceRange = (range) => {
+    if (range === "1000+") {
+      return { min: 1000, max: Infinity };
+    }
+
+    const [min, max] = range.split("-").map(Number);
+    return { min, max: max || Infinity };
+  };
+
+  const parseStockQuantityRange = (range) => {
+    if (range === "200+") {
+      return { min: 200, max: Infinity };
+    }
+
+    const [min, max] = range.split("-").map(Number);
+    return { min, max: max || Infinity };
+  };
+
   const filteredProducts = store.products.filter((item) => {
     const itemPrice = item.price;
     const isWithinPriceRange =
-      itemPrice >= (minPrice === "" ? 0 : Number(minPrice)) &&
-      (maxPrice === "" || itemPrice <= Number(maxPrice)); // Maneja el caso de maxPrice vacío
+      selectedPriceRanges.length === 0 ||
+      selectedPriceRanges.some((range) => {
+        const { min, max } = parsePriceRange(range);
+        return itemPrice >= min && itemPrice <= max;
+      });
 
-    return isWithinPriceRange && (!freeShipping || item.is_free_shipping);
+    const hasRequiredRating =
+      selectedRatings.length === 0 ||
+      selectedRatings.includes(Math.floor(item.average_rating));
+
+    const isWithinStockRange =
+      selectedStockQuantities.length === 0 ||
+      selectedStockQuantities.some((range) => {
+        const { min, max } = parseStockQuantityRange(range);
+        return item.stock_quantity >= min && item.stock_quantity <= max;
+      });
+
+    return (
+      isWithinPriceRange &&
+      hasRequiredRating &&
+      isWithinStockRange &&
+      (!freeShipping || item.is_free_shipping)
+    );
   });
 
-  // Paginación: Calcular los productos a mostrar en la página actual
-  const totalPages = Math.ceil(filteredProducts.length / itemsPerPage);
+  // Ordenar productos
+  const sortedProducts = filteredProducts.sort((a, b) => {
+    switch (sortOrder) {
+      case "price-asc":
+        return a.price - b.price;
+      case "price-desc":
+        return b.price - a.price;
+      case "rating":
+      default:
+        return b.average_rating - a.average_rating; // Orden por valoración descendente
+    }
+  });
+
+  const totalPages = Math.ceil(sortedProducts.length / itemsPerPage);
   const startIndex = (currentPage - 1) * itemsPerPage;
-  const currentProducts = filteredProducts.slice(
+  const currentProducts = sortedProducts.slice(
     startIndex,
     startIndex + itemsPerPage
   );
 
-  // Maneja cambios en el input y asegura que solo se introduzcan números
-  const handlePriceChange = (e, setter) => {
-    const value = e.target.value;
-    if (/^\d*\.?\d*$/.test(value)) {
-      // Expresión regular para permitir solo números y puntos
-      setter(value);
-    }
+  const handlePriceRangeChange = (ranges) => {
+    setSelectedPriceRanges(ranges);
   };
 
-  // Cambiar página y desplazarse hacia arriba
+  const handleFreeShippingChange = (checked) => {
+    setFreeShipping(checked);
+  };
+
+  const handleRatingChange = (ratings) => {
+    setSelectedRatings(ratings);
+  };
+
+  const handleStockQuantityChange = (quantities) => {
+    setSelectedStockQuantities(quantities);
+  };
+
+  const handleSortChange = (e) => {
+    setSortOrder(e.target.value);
+  };
+
   const changePage = (newPage) => {
     setCurrentPage(newPage);
-    window.scrollTo({ top: 0, behavior: "smooth" }); // Desplazarse hacia arriba con animación suave
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   return (
-    <div className="container-fluid text-center">
-      <h1 className="mt-5">Resultados</h1>
+    <div className="container-fluid mt-5">
+      <h1 className="text-center">Resultados</h1>
+      <div className="row mt-5">
+        <div className="col-md-3">
+          <Filters
+            selectedPriceRanges={selectedPriceRanges}
+            freeShipping={freeShipping}
+            selectedRatings={selectedRatings}
+            selectedStockQuantities={selectedStockQuantities}
+            onPriceRangeChange={handlePriceRangeChange}
+            onFreeShippingChange={handleFreeShippingChange}
+            onRatingChange={handleRatingChange}
+            onStockQuantityChange={handleStockQuantityChange}
+          />
+        </div>
 
-      {/* Filtros */}
-      <div className="row mb-3">
-        <div className="col-md-4">
-          <label htmlFor="minPrice" className="form-label">
-            Precio Mínimo
-          </label>
-          <input
-            type="text"
-            id="minPrice"
-            className="form-control"
-            value={minPrice}
-            onChange={(e) => handlePriceChange(e, setMinPrice)}
-          />
-        </div>
-        <div className="col-md-4">
-          <label htmlFor="maxPrice" className="form-label">
-            Precio Máximo
-          </label>
-          <input
-            type="text"
-            id="maxPrice"
-            className="form-control"
-            value={maxPrice}
-            onChange={(e) => handlePriceChange(e, setMaxPrice)}
-          />
-        </div>
-        <div className="col-md-4">
-          <div className="form-check">
-            <input
-              type="checkbox"
-              id="freeShipping"
-              className="form-check-input"
-              checked={freeShipping}
-              onChange={(e) => setFreeShipping(e.target.checked)}
-            />
-            <label htmlFor="freeShipping" className="form-check-label">
-              Envío gratuito
+        <div className="col-md-9">
+          <div className="mb-4">
+            <label htmlFor="sortOrder" className="form-label">
+              Ordenar por:
             </label>
+            <select
+              id="sortOrder"
+              className="form-select"
+              value={sortOrder}
+              onChange={handleSortChange}
+            >
+              <option value="rating">Valoración</option>
+              <option value="price-asc">Precio Ascendente</option>
+              <option value="price-desc">Precio Descendente</option>
+            </select>
           </div>
-        </div>
-      </div>
-
-      <div className="row">
-        <div className="col-12">
-          {currentProducts.length === 0 ? (
-            <p>No hay productos que coincidan con los filtros.</p>
-          ) : (
-            currentProducts.map((item) => (
-              <div
-                key={item.id}
-                className="card mb-3 mx-auto"
-                style={{ maxWidth: "540px" }}
-              >
-                <img
-                  src="https://via.placeholder.com/540x300"
-                  className="card-img-top"
-                  alt={item.name}
-                  style={{ maxHeight: "300px", objectFit: "cover" }}
-                />
-                <div className="card-body">
-                  <h5 className="card-title">{item.name}</h5>
-                  <p className="card-text">
-                    <strong>Quedan:</strong> {item.stock_quantity} unidades
-                  </p>
-                  <p className="card-text">
-                    <strong>Envío gratuito:</strong>{" "}
-                    {item.is_free_shipping ? "Sí" : "No"}
-                  </p>
-                  <p className="card-text">
-                    <strong>Precio:</strong> {item.price} €
-                  </p>
+          <div className="row">
+            {currentProducts.length === 0 ? (
+              <p>No hay productos que coincidan con los filtros.</p>
+            ) : (
+              currentProducts.map((item) => (
+                <div key={item.id} className="col-md-4 mb-4">
+                  <ProductCard product={item} />
                 </div>
-              </div>
-            ))
-          )}
+              ))
+            )}
+          </div>
+          <Pagination
+            currentPage={currentPage}
+            totalPages={totalPages}
+            onPageChange={changePage}
+          />
         </div>
       </div>
-
-      {/* Controles de Paginación */}
-      <nav aria-label="Page navigation">
-        <ul className="pagination">
-          <li className="page-item">
-            <button
-              className="page-link"
-              onClick={() => changePage(Math.max(currentPage - 1, 1))}
-              disabled={currentPage === 1}
-            >
-              Anterior
-            </button>
-          </li>
-          {Array.from({ length: totalPages }, (_, index) => (
-            <li
-              key={index + 1}
-              className={`page-item ${
-                index + 1 === currentPage ? "active" : ""
-              }`}
-            >
-              <button
-                className="page-link"
-                onClick={() => changePage(index + 1)}
-              >
-                {index + 1}
-              </button>
-            </li>
-          ))}
-          <li className="page-item">
-            <button
-              className="page-link"
-              onClick={() => changePage(Math.min(currentPage + 1, totalPages))}
-              disabled={currentPage === totalPages}
-            >
-              Siguiente
-            </button>
-          </li>
-        </ul>
-      </nav>
     </div>
   );
 };
