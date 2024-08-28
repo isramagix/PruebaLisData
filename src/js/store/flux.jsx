@@ -92,16 +92,32 @@ const getState = ({ getStore, getActions, setStore }) => {
 
       doQueryConsult: () => {
         const store = getStore();
-        query = {
+        const query = {
           id_category: store.selectCategory,
           id_subcategory: store.selectSubcategory,
           id_color: store.selectColor,
         };
-        queryString = new URLSearchParams(query).toString();
+        const queryString = new URLSearchParams(query).toString();
         setStore({ querySearch: queryString });
       },
 
-      getResult: async () => {},
+      getResult: async () => {
+        const store = getStore();
+        const actions = getActions();
+        actions.doQueryConsult();
+        const query = store.querySearch;
+
+        const response = await fetch(`${API_BASE_URL}product?${query}`, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            "X-API-KEY": `${API_KEY}`,
+          },
+        });
+        const data = await response.json();
+        console.log(data);
+        setStore({ products: data });
+      },
     },
   };
 };

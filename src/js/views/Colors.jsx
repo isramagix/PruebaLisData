@@ -12,7 +12,7 @@ export const Colors = () => {
     <div className="container-fluid text-center">
       <div className="row">
         <div className="col-12">
-          <h1 className="mt-5">Colors</h1>
+          <h1 className="mt-5">Colores</h1>
           <div className="row">
             <Form
               labels={store.colors}
