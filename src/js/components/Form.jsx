@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-export const Form = ({ labels, actual, route }) => {
+export const Form = ({ labels, actual, route, onBack }) => {
   const [selectedInput, setSelectedInput] = useState("");
   const [showWarning, setShowWarning] = useState(false);
   const navigate = useNavigate();
@@ -23,14 +23,14 @@ export const Form = ({ labels, actual, route }) => {
 
   return (
     <div className="container mt-5">
-      <h1>Selecciona una Categoría</h1>
+      <h1>Selecciona una opción</h1>
       <form onSubmit={handleSubmit}>
         <div className="form-group">
           {labels.map((lab) => (
             <div key={lab.id}>
               <input
                 type="radio"
-                name="category"
+                name="option"
                 value={lab.id}
                 onChange={handleChange}
               />
@@ -41,13 +41,22 @@ export const Form = ({ labels, actual, route }) => {
 
         {showWarning && (
           <div className="alert alert-danger mt-3">
-            Por favor, selecciona una categoría antes de continuar.
+            Por favor, selecciona una opción antes de continuar.
           </div>
         )}
 
-        <button type="submit" className="btn btn-primary mt-3">
-          Enviar
-        </button>
+        <div className="mt-4">
+          <button
+            type="button"
+            className="btn btn-secondary me-2"
+            onClick={onBack}
+          >
+            Atrás
+          </button>
+          <button type="submit" className="btn btn-primary">
+            Siguiente
+          </button>
+        </div>
       </form>
     </div>
   );

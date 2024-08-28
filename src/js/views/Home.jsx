@@ -15,7 +15,7 @@ export const Home = () => {
           mejores recomendaciones
         </h3>
         <button
-          className="btn btn-main"
+          className="btn btn-secondary mt-5 px-5 py-3"
           onClick={() => {
             actions.resetStore();
             navigate("/categories");

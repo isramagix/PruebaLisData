@@ -1,4 +1,5 @@
 import { useContext, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Context } from "../store/AppContext";
 import { Filters } from "../components/Filters";
 import { ProductCard } from "../components/ProductCard";
@@ -13,6 +14,8 @@ export const Results = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [sortOrder, setSortOrder] = useState("rating");
   const itemsPerPage = 12;
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     actions.getResult();
@@ -109,6 +112,10 @@ export const Results = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
+  const handleBackHome = () => {
+    navigate("/");
+  };
+
   return (
     <div className="container-fluid mt-5">
       <h1 className="text-center">Resultados</h1>
@@ -124,6 +131,9 @@ export const Results = () => {
             onRatingChange={handleRatingChange}
             onStockQuantityChange={handleStockQuantityChange}
           />
+          <button className="btn btn-secondary mt-3" onClick={handleBackHome}>
+            Volver a Inicio
+          </button>
         </div>
 
         <div className="col-md-9">
