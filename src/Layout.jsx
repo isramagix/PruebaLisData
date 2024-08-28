@@ -19,9 +19,9 @@ const Layout = () => {
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/categories" element={<Categories />} />
-              <Route path="/cubcategories" element={<Subcategories />} />
-              <Route path="colors" element={<Colors />} />
-              <Route path="results" element={<Results />} />
+              <Route path="/subcategories" element={<Subcategories />} />
+              <Route path="/colors" element={<Colors />} />
+              <Route path="/results" element={<Results />} />
               <Route path="*" element={<h1>Not found!</h1>} />
             </Routes>
           </div>
