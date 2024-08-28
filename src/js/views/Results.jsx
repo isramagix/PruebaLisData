@@ -11,7 +11,7 @@ export const Results = () => {
 
   useEffect(() => {
     actions.getResult();
-  }, []);
+  }, [actions]);
 
   // Filtrar productos basados en los filtros aplicados
   const filteredProducts = store.products.filter((item) => {
@@ -38,6 +38,12 @@ export const Results = () => {
       // Expresión regular para permitir solo números y puntos
       setter(value);
     }
+  };
+
+  // Cambiar página y desplazarse hacia arriba
+  const changePage = (newPage) => {
+    setCurrentPage(newPage);
+    window.scrollTo({ top: 0, behavior: "smooth" }); // Desplazarse hacia arriba con animación suave
   };
 
   return (
@@ -89,7 +95,7 @@ export const Results = () => {
       <div className="row">
         <div className="col-12">
           {currentProducts.length === 0 ? (
-            <h3>No hay productos que coincidan con los filtros.</h3>
+            <p>No hay productos que coincidan con los filtros.</p>
           ) : (
             currentProducts.map((item) => (
               <div
@@ -128,9 +134,7 @@ export const Results = () => {
           <li className="page-item">
             <button
               className="page-link"
-              onClick={() =>
-                setCurrentPage((prevPage) => Math.max(prevPage - 1, 1))
-              }
+              onClick={() => changePage(Math.max(currentPage - 1, 1))}
               disabled={currentPage === 1}
             >
               Anterior
@@ -145,7 +149,7 @@ export const Results = () => {
             >
               <button
                 className="page-link"
-                onClick={() => setCurrentPage(index + 1)}
+                onClick={() => changePage(index + 1)}
               >
                 {index + 1}
               </button>
@@ -154,9 +158,7 @@ export const Results = () => {
           <li className="page-item">
             <button
               className="page-link"
-              onClick={() =>
-                setCurrentPage((prevPage) => Math.min(prevPage + 1, totalPages))
-              }
+              onClick={() => changePage(Math.min(currentPage + 1, totalPages))}
               disabled={currentPage === totalPages}
             >
               Siguiente
