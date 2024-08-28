@@ -81,12 +81,3 @@ body {
 .star.filled {
   color: #ffcc00; /* Color para estrellas rellenas */
 }
-
-.star.half-filled::before {
-  content: "★";
-  color: #ffcc00; /* Color para la mitad de la estrella */
-  position: absolute;
-  width: 50%;
-  overflow: hidden;
-  display: inline-block;
-}

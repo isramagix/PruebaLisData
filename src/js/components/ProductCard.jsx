@@ -1,5 +1,14 @@
 import "../../styles/index.css";
+import { imagesObjet } from "../../assets/images";
+import { Context } from "../store/AppContext";
+import { useContext } from "react";
+
 export const ProductCard = ({ product }) => {
+  const { store } = useContext(Context);
+
+  const imageCard =
+    imagesObjet.find((image) => image.id === store.selectSubcategory)?.url ||
+    "https://via.placeholder.com/540x300";
   const renderStars = () => {
     const stars = [];
     for (let i = 1; i <= 5; i++) {
@@ -27,7 +36,7 @@ export const ProductCard = ({ product }) => {
       style={{ maxWidth: "540px" }}
     >
       <img
-        src="https://via.placeholder.com/540x300"
+        src={imageCard}
         className="card-img-top"
         alt={product.name}
         style={{ maxHeight: "300px", objectFit: "cover" }}

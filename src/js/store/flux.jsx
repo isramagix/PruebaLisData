@@ -1,5 +1,6 @@
 const API_BASE_URL = import.meta.env.VITE_API_URL;
 const API_KEY = import.meta.env.VITE_API_KEY;
+
 const getState = ({ getStore, getActions, setStore }) => {
   return {
     store: {
@@ -26,18 +27,25 @@ const getState = ({ getStore, getActions, setStore }) => {
       },
 
       getCategories: async () => {
-        const response = await fetch(`${API_BASE_URL}category`, {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            "X-API-KEY": `${API_KEY}`,
-          },
-        });
-        const data = await response.json();
-        console.log(data);
-        setStore({ categories: data });
-
-        console.log("categories", getStore().categories);
+        const store = getStore();
+        try {
+          const response = await fetch(`${API_BASE_URL}category`, {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              "X-API-KEY": `${API_KEY}`,
+            },
+          });
+          if (!response.ok) {
+            throw new Error("Error fetching categories");
+          }
+          const data = await response.json();
+          console.log(data);
+          setStore({ categories: data });
+          console.log("categories", store.categories);
+        } catch (error) {
+          console.error("Failed to fetch categories:", error);
+        }
       },
 
       savedSelectedCategory: (category) => {
@@ -46,21 +54,27 @@ const getState = ({ getStore, getActions, setStore }) => {
 
       getSubCategories: async () => {
         const store = getStore();
-        const response = await fetch(
-          `${API_BASE_URL}category/${store.selectCategory}/subcategory`,
-          {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-              "X-API-KEY": `${API_KEY}`,
-            },
+        try {
+          const response = await fetch(
+            `${API_BASE_URL}category/${store.selectCategory}/subcategory`,
+            {
+              method: "GET",
+              headers: {
+                "Content-Type": "application/json",
+                "X-API-KEY": `${API_KEY}`,
+              },
+            }
+          );
+          if (!response.ok) {
+            throw new Error("Error fetching subcategories");
           }
-        );
-        const data = await response.json();
-        console.log(data);
-        setStore({ subcategories: data });
-
-        console.log("subcategories", getStore().subcategories);
+          const data = await response.json();
+          console.log(data);
+          setStore({ subcategories: data });
+          console.log("subcategories", getStore().subcategories);
+        } catch (error) {
+          console.error("Failed to fetch subcategories:", error);
+        }
       },
 
       savedSelectedSubcategory: (subcategory) => {
@@ -69,21 +83,27 @@ const getState = ({ getStore, getActions, setStore }) => {
 
       getColors: async () => {
         const store = getStore();
-        const response = await fetch(
-          `${API_BASE_URL}subcategory/${store.selectSubcategory}/color`,
-          {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-              "X-API-KEY": `${API_KEY}`,
-            },
+        try {
+          const response = await fetch(
+            `${API_BASE_URL}subcategory/${store.selectSubcategory}/color`,
+            {
+              method: "GET",
+              headers: {
+                "Content-Type": "application/json",
+                "X-API-KEY": `${API_KEY}`,
+              },
+            }
+          );
+          if (!response.ok) {
+            throw new Error("Error fetching colors");
           }
-        );
-        const data = await response.json();
-        console.log(data);
-        setStore({ colors: data });
-
-        console.log("colors", getStore().colors);
+          const data = await response.json();
+          console.log(data);
+          setStore({ colors: data });
+          console.log("colors", getStore().colors);
+        } catch (error) {
+          console.error("Failed to fetch colors:", error);
+        }
       },
 
       savedSelectedColor: (color) => {
@@ -104,19 +124,26 @@ const getState = ({ getStore, getActions, setStore }) => {
       getResult: async () => {
         const store = getStore();
         const actions = getActions();
-        actions.doQueryConsult();
-        const query = store.querySearch;
+        try {
+          actions.doQueryConsult();
+          const query = store.querySearch;
 
-        const response = await fetch(`${API_BASE_URL}product?${query}`, {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            "X-API-KEY": `${API_KEY}`,
-          },
-        });
-        const data = await response.json();
-        console.log(data);
-        setStore({ products: data });
+          const response = await fetch(`${API_BASE_URL}product?${query}`, {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              "X-API-KEY": `${API_KEY}`,
+            },
+          });
+          if (!response.ok) {
+            throw new Error("Error fetching products");
+          }
+          const data = await response.json();
+          console.log(data);
+          setStore({ products: data });
+        } catch (error) {
+          console.error("Failed to fetch products:", error);
+        }
       },
     },
   };
