@@ -161,7 +161,7 @@ export const Results = () => {
             ) : (
               currentProducts.map((item) => (
                 <div key={item.id} className="col-md-4 mb-4">
-                  <ProductCard product={item} />
+                  <ProductCard className="card" product={item} />
                 </div>
               ))
             )}

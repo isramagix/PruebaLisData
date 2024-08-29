@@ -1,7 +1,7 @@
 import { useTranslation } from "react-i18next"; // Importar el hook de traducción
 
 export const Pagination = ({ currentPage, totalPages, onPageChange }) => {
-  const { t } = useTranslation(); // Inicializar el hook de traducción
+  const { t } = useTranslation();
 
   return (
     <nav aria-label="Page navigation">
@@ -12,7 +12,7 @@ export const Pagination = ({ currentPage, totalPages, onPageChange }) => {
             onClick={() => onPageChange(Math.max(currentPage - 1, 1))}
             disabled={currentPage === 1}
           >
-            {t("pagination.previous")} {/* Utilizar la traducción */}
+            {t("pagination.previous")}
           </button>
         </li>
         {Array.from({ length: totalPages }, (_, index) => (
@@ -34,7 +34,7 @@ export const Pagination = ({ currentPage, totalPages, onPageChange }) => {
             onClick={() => onPageChange(Math.min(currentPage + 1, totalPages))}
             disabled={currentPage === totalPages}
           >
-            {t("pagination.next")} {/* Utilizar la traducción */}
+            {t("pagination.next")}
           </button>
         </li>
       </ul>

@@ -15,6 +15,7 @@ export const Home = () => {
       <section className="text-center">
         <h3>{t("home.clickToStart")}</h3>
         <button
+          id="startBtn"
           className="btn btn-secondary mt-5 px-5 py-3"
           onClick={() => {
             actions.resetStore();

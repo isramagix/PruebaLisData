@@ -50,13 +50,18 @@ const getState = ({ getStore, getActions, setStore }) => {
 
       savedSelectedCategory: (category) => {
         setStore({ selectCategory: category });
+        localStorage.setItem("category", category);
       },
 
       getSubCategories: async () => {
         const store = getStore();
         try {
           const response = await fetch(
-            `${API_BASE_URL}category/${store.selectCategory}/subcategory`,
+            `${API_BASE_URL}category/${
+              localStorage.getItem("category")
+                ? localStorage.getItem("category")
+                : store.selectCategory
+            }/subcategory`,
             {
               method: "GET",
               headers: {
@@ -79,13 +84,18 @@ const getState = ({ getStore, getActions, setStore }) => {
 
       savedSelectedSubcategory: (subcategory) => {
         setStore({ selectSubcategory: subcategory });
+        localStorage.setItem("subcategory", subcategory);
       },
 
       getColors: async () => {
         const store = getStore();
         try {
           const response = await fetch(
-            `${API_BASE_URL}subcategory/${store.selectSubcategory}/color`,
+            `${API_BASE_URL}subcategory/${
+              localStorage.getItem("subcategory")
+                ? localStorage.getItem("subcategory")
+                : store.selectSubcategory
+            }/color`,
             {
               method: "GET",
               headers: {
@@ -108,14 +118,21 @@ const getState = ({ getStore, getActions, setStore }) => {
 
       savedSelectedColor: (color) => {
         setStore({ selectColor: color });
+        localStorage.setItem("color", color);
       },
 
       doQueryConsult: () => {
         const store = getStore();
         const query = {
-          id_category: store.selectCategory,
-          id_subcategory: store.selectSubcategory,
-          id_color: store.selectColor,
+          id_category: localStorage.getItem("category")
+            ? localStorage.getItem("category")
+            : store.selectCategory,
+          id_subcategory: localStorage.getItem("subcategory")
+            ? localStorage.getItem("subcategory")
+            : store.selectSubcategory,
+          id_color: localStorage.getItem("color")
+            ? localStorage.getItem("color")
+            : store.color,
         };
         const queryString = new URLSearchParams(query).toString();
         setStore({ querySearch: queryString });
