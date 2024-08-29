@@ -4,6 +4,7 @@ import { Context } from "../store/AppContext";
 import { Filters } from "../components/Filters";
 import { ProductCard } from "../components/ProductCard";
 import { Pagination } from "../components/Pagination";
+import { useTranslation } from "react-i18next"; // Importar el hook de traducción
 
 export const Results = () => {
   const { store, actions } = useContext(Context);
@@ -16,6 +17,7 @@ export const Results = () => {
   const itemsPerPage = 12;
 
   const navigate = useNavigate();
+  const { t } = useTranslation(); // Inicializar el hook de traducción
 
   useEffect(() => {
     actions.getResult();
@@ -118,7 +120,8 @@ export const Results = () => {
 
   return (
     <div className="container-fluid mt-5">
-      <h1 className="text-center">Resultados</h1>
+      <h1 className="text-center">{t("results.title")}</h1>{" "}
+      {/* Utilizar la traducción */}
       <div className="row mt-5">
         <div className="col-md-3">
           <Filters
@@ -132,14 +135,14 @@ export const Results = () => {
             onStockQuantityChange={handleStockQuantityChange}
           />
           <button className="btn btn-secondary mt-3" onClick={handleBackHome}>
-            Volver a Inicio
+            {t("results.backToHome")} {/* Utilizar la traducción */}
           </button>
         </div>
 
         <div className="col-md-9">
           <div className="mb-4">
             <label htmlFor="sortOrder" className="form-label">
-              Ordenar por:
+              {t("results.sortBy")} {/* Utilizar la traducción */}
             </label>
             <select
               id="sortOrder"
@@ -147,14 +150,14 @@ export const Results = () => {
               value={sortOrder}
               onChange={handleSortChange}
             >
-              <option value="rating">Valoración</option>
-              <option value="price-asc">Precio Ascendente</option>
-              <option value="price-desc">Precio Descendente</option>
+              <option value="rating">{t("results.sort.rating")}</option>
+              <option value="price-asc">{t("results.sort.priceAsc")}</option>
+              <option value="price-desc">{t("results.sort.priceDesc")}</option>
             </select>
           </div>
           <div className="row">
             {currentProducts.length === 0 ? (
-              <p>No hay productos que coincidan con los filtros.</p>
+              <p>{t("results.noProducts")}</p>
             ) : (
               currentProducts.map((item) => (
                 <div key={item.id} className="col-md-4 mb-4">

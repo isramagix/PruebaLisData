@@ -2,10 +2,12 @@ import { useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Context } from "../store/AppContext";
 import { Form } from "../components/Form";
+import { useTranslation } from "react-i18next";
 
 export const Subcategories = () => {
   const { store, actions } = useContext(Context);
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   useEffect(() => {
     actions.getSubCategories();
@@ -24,7 +26,7 @@ export const Subcategories = () => {
     <div className="container-fluid text-center">
       <div className="row">
         <div className="col-12">
-          <h1 className="mt-5">Subcategorías</h1>
+          <h1 className="mt-5">{t("subcategories.title")}</h1>
           <Form
             labels={store.subcategories}
             actual={handleSubmit}

@@ -2,13 +2,16 @@ import "../../styles/index.css";
 import { imagesObjet } from "../../assets/images";
 import { Context } from "../store/AppContext";
 import { useContext } from "react";
+import { useTranslation } from "react-i18next"; // Importar el hook de traducción
 
 export const ProductCard = ({ product }) => {
   const { store } = useContext(Context);
+  const { t } = useTranslation(); // Inicializar el hook de traducción
 
   const imageCard =
     imagesObjet.find((image) => image.id === store.selectSubcategory)?.url ||
     "https://via.placeholder.com/540x300";
+
   const renderStars = () => {
     const stars = [];
     for (let i = 1; i <= 5; i++) {
@@ -44,14 +47,17 @@ export const ProductCard = ({ product }) => {
       <div className="card-body">
         <h5 className="card-title">{product.name}</h5>
         <p className="card-text">
-          <strong>Quedan:</strong> {product.stock_quantity} unidades
+          <strong>{t("productCard.remaining")}</strong> {product.stock_quantity}{" "}
+          {t("productCard.units")}
         </p>
         <p className="card-text">
-          <strong>Envío gratuito:</strong>{" "}
-          {product.is_free_shipping ? "Sí" : "No"}
+          <strong>{t("productCard.freeShipping")}</strong>{" "}
+          {product.is_free_shipping
+            ? t("productCard.yes")
+            : t("productCard.no")}
         </p>
         <p className="card-text">
-          <strong>Precio:</strong> {product.price} €
+          <strong>{t("productCard.price")}</strong> {product.price} €
         </p>
         <div className="product-rating">{renderStars()}</div>
       </div>

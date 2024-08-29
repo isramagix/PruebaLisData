@@ -1,4 +1,5 @@
 import "../../styles/index.css";
+import { useTranslation } from "react-i18next"; // Importar el hook de traducción
 
 export const Filters = ({
   selectedPriceRanges,
@@ -10,27 +11,29 @@ export const Filters = ({
   onRatingChange,
   onStockQuantityChange,
 }) => {
+  const { t } = useTranslation(); // Inicializar el hook de traducción
+
   const priceRanges = [
-    { label: "0-100€", value: "0-100" },
-    { label: "100-300€", value: "100-300" },
-    { label: "300-500€", value: "300-500" },
-    { label: "500-1000€", value: "500-1000" },
-    { label: "+1000€", value: "1000+" },
+    { label: t("filters.priceRanges.0-100"), value: "0-100" },
+    { label: t("filters.priceRanges.100-300"), value: "100-300" },
+    { label: t("filters.priceRanges.300-500"), value: "300-500" },
+    { label: t("filters.priceRanges.500-1000"), value: "500-1000" },
+    { label: t("filters.priceRanges.1000+"), value: "1000+" },
   ];
 
   const ratings = [
-    { label: "1 estrella", value: 1 },
-    { label: "2 estrellas", value: 2 },
-    { label: "3 estrellas", value: 3 },
-    { label: "4 estrellas", value: 4 },
-    { label: "5 estrellas", value: 5 },
+    { label: t("filters.ratings.1_star"), value: 1 },
+    { label: t("filters.ratings.2_stars"), value: 2 },
+    { label: t("filters.ratings.3_stars"), value: 3 },
+    { label: t("filters.ratings.4_stars"), value: 4 },
+    { label: t("filters.ratings.5_stars"), value: 5 },
   ];
 
   const stockQuantities = [
-    { label: "0-50 unidades", value: "0-50" },
-    { label: "51-100 unidades", value: "51-100" },
-    { label: "101-200 unidades", value: "101-200" },
-    { label: "200+ unidades", value: "200+" },
+    { label: t("filters.stockQuantities.0-50"), value: "0-50" },
+    { label: t("filters.stockQuantities.51-100"), value: "51-100" },
+    { label: t("filters.stockQuantities.101-200"), value: "101-200" },
+    { label: t("filters.stockQuantities.200+"), value: "200+" },
   ];
 
   const handlePriceRangeChange = (value) => {
@@ -56,11 +59,11 @@ export const Filters = ({
 
   return (
     <div className="filters-container p-3">
-      <h5 className="filters-title mb-4">Filtrar por:</h5>
+      <h5 className="filters-title mb-4">{t("filters.filterBy")}</h5>
 
       {/* Filtro por precio */}
       <div className="filter-group mb-4">
-        <h6 className="filter-subtitle">Precio</h6>
+        <h6 className="filter-subtitle">{t("filters.price")}</h6>
         {priceRanges.map((range) => (
           <div className="form-check" key={range.value}>
             <input
@@ -82,7 +85,7 @@ export const Filters = ({
 
       {/* Filtro por envío gratuito */}
       <div className="filter-group mb-4">
-        <h6 className="filter-subtitle">Envío</h6>
+        <h6 className="filter-subtitle">{t("filters.shipping")}</h6>
         <div className="form-check">
           <input
             type="checkbox"
@@ -92,14 +95,14 @@ export const Filters = ({
             onChange={(e) => onFreeShippingChange(e.target.checked)}
           />
           <label htmlFor="freeShipping" className="form-check-label">
-            Envío gratuito
+            {t("filters.freeShipping")}
           </label>
         </div>
       </div>
 
       {/* Filtro por valoración */}
       <div className="filter-group mb-4">
-        <h6 className="filter-subtitle">Valoración</h6>
+        <h6 className="filter-subtitle">{t("filters.rating")}</h6>
         {ratings.map((rating) => (
           <div className="form-check" key={rating.value}>
             <input
@@ -121,7 +124,7 @@ export const Filters = ({
 
       {/* Filtro por unidades disponibles */}
       <div className="filter-group mb-4">
-        <h6 className="filter-subtitle">Unidades disponibles</h6>
+        <h6 className="filter-subtitle">{t("filters.stockQuantitiesTitle")}</h6>
         {stockQuantities.map((quantity) => (
           <div className="form-check" key={quantity.value}>
             <input

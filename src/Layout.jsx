@@ -9,13 +9,15 @@ import { Categories } from "./js/views/Categories";
 import { Subcategories } from "./js/views/Subcategories";
 import { Colors } from "./js/views/Colors";
 import { Results } from "./js/views/Results";
-//create your first component
+import "./i18n";
+import { Navbar } from "./js/components/Navbar";
 const Layout = () => {
   return (
     <div>
       <BrowserRouter>
         <ScrollToTop>
           <div className="container">
+            <Navbar />
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/categories" element={<Categories />} />

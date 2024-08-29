@@ -1,0 +1,77 @@
+{
+  "navbar": {
+    "home": "Home",
+    "language": "Language"
+  },
+  "home": {
+    "findProduct": "Find your ideal product!",
+    "clickToStart": "Click the button to take a quiz and get the best recommendations",
+    "start": "Start"
+  },
+  "form": {
+    "selectOption": "Select an option",
+    "warning": "Please select an option before proceeding.",
+    "back": "Back",
+    "next": "Next"
+  },
+  "categories": {
+    "title": "Categories"
+  },
+  "subcategories": {
+    "title": "Subcategories"
+  },
+  "colors": {
+    "title": "Colors"
+  },
+  "results": {
+    "title": "Results",
+    "backToHome": "Back to Home",
+    "sortBy": "Sort by:",
+    "sort": {
+      "rating": "Rating",
+      "priceAsc": "Price Ascending",
+      "priceDesc": "Price Descending"
+    },
+    "noProducts": "No products match the filters."
+  },
+  "filters": {
+    "filterBy": "Filter by:",
+    "price": "Price",
+    "shipping": "Shipping",
+    "freeShipping": "Free shipping",
+    "rating": "Rating",
+    "stockQuantitiesTitle": "Available units",
+    "priceRanges": {
+      "0-100": "0-100€",
+      "100-300": "100-300€",
+      "300-500": "300-500€",
+      "500-1000": "500-1000€",
+      "1000+": "+1000€"
+    },
+    "ratings": {
+      "1_star": "1 star",
+      "2_stars": "2 stars",
+      "3_stars": "3 stars",
+      "4_stars": "4 stars",
+      "5_stars": "5 stars"
+    },
+    "stockQuantities": {
+      "0-50": "0-50 units",
+      "51-100": "51-100 units",
+      "101-200": "101-200 units",
+      "200+": "200+ units"
+    }
+  },
+  "pagination": {
+    "previous": "Previous",
+    "next": "Next"
+  },
+  "productCard": {
+    "remaining": "Remaining:",
+    "units": "units",
+    "freeShipping": "Free shipping:",
+    "yes": "Yes",
+    "no": "No",
+    "price": "Price:"
+  }
+}

@@ -1,14 +1,16 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 export const Form = ({ labels, actual, route, onBack }) => {
   const [selectedInput, setSelectedInput] = useState("");
   const [showWarning, setShowWarning] = useState(false);
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   const handleChange = (event) => {
     setSelectedInput(event.target.value);
-    setShowWarning(false); // Ocultar aviso si el usuario selecciona una opción
+    setShowWarning(false);
   };
 
   const handleSubmit = (event) => {
@@ -23,7 +25,7 @@ export const Form = ({ labels, actual, route, onBack }) => {
 
   return (
     <div className="container mt-5">
-      <h1>Selecciona una opción</h1>
+      <h1>{t("form.selectOption")}</h1>
       <form onSubmit={handleSubmit}>
         <div className="form-group">
           {labels.map((lab) => (
@@ -40,9 +42,7 @@ export const Form = ({ labels, actual, route, onBack }) => {
         </div>
 
         {showWarning && (
-          <div className="alert alert-danger mt-3">
-            Por favor, selecciona una opción antes de continuar.
-          </div>
+          <div className="alert alert-danger mt-3">{t("form.warning")}</div>
         )}
 
         <div className="mt-4">
@@ -51,10 +51,10 @@ export const Form = ({ labels, actual, route, onBack }) => {
             className="btn btn-secondary me-2"
             onClick={onBack}
           >
-            Atrás
+            {t("form.back")}
           </button>
           <button type="submit" className="btn btn-primary">
-            Siguiente
+            {t("form.next")}
           </button>
         </div>
       </form>
