@@ -5,7 +5,6 @@ export const Navbar = () => {
   const navigate = useNavigate();
   const { t, i18n } = useTranslation();
 
-  // Función para cambiar el idioma
   const handleLanguageChange = (event) => {
     i18n.changeLanguage(event.target.checked ? "en" : "es");
   };
