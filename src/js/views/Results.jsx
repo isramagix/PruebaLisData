@@ -4,7 +4,9 @@ import { Context } from "../store/AppContext";
 import { Filters } from "../components/Filters";
 import { ProductCard } from "../components/ProductCard";
 import { Pagination } from "../components/Pagination";
-import { useTranslation } from "react-i18next"; // Importar el hook de traducción
+
+import { useTranslation } from "react-i18next";
+import { DropDownFilter } from "../components/DropDownFilter";
 
 export const Results = () => {
   const { store, actions } = useContext(Context);
@@ -17,7 +19,7 @@ export const Results = () => {
   const itemsPerPage = 12;
 
   const navigate = useNavigate();
-  const { t } = useTranslation(); // Inicializar el hook de traducción
+  const { t } = useTranslation();
 
   useEffect(() => {
     actions.getResult();
@@ -27,7 +29,6 @@ export const Results = () => {
     if (range === "1000+") {
       return { min: 1000, max: Infinity };
     }
-
     const [min, max] = range.split("-").map(Number);
     return { min, max: max || Infinity };
   };
@@ -36,7 +37,6 @@ export const Results = () => {
     if (range === "200+") {
       return { min: 200, max: Infinity };
     }
-
     const [min, max] = range.split("-").map(Number);
     return { min, max: max || Infinity };
   };
@@ -69,7 +69,6 @@ export const Results = () => {
     );
   });
 
-  // Ordenar productos
   const sortedProducts = filteredProducts.sort((a, b) => {
     switch (sortOrder) {
       case "price-asc":
@@ -120,7 +119,7 @@ export const Results = () => {
 
   return (
     <div className="container-fluid mt-5">
-      <h1 className="text-center">{t("results.title")}</h1>{" "}
+      <h1 className="text-center">{t("results.title")}</h1>
       <div className="row mt-5">
         <div className="col-md-3">
           <Filters
@@ -139,21 +138,10 @@ export const Results = () => {
         </div>
 
         <div className="col-md-9">
-          <div className="mb-4">
-            <label htmlFor="sortOrder" className="form-label">
-              {t("results.sortBy")}
-            </label>
-            <select
-              id="sortOrder"
-              className="form-select"
-              value={sortOrder}
-              onChange={handleSortChange}
-            >
-              <option value="rating">{t("results.sort.rating")}</option>
-              <option value="price-asc">{t("results.sort.priceAsc")}</option>
-              <option value="price-desc">{t("results.sort.priceDesc")}</option>
-            </select>
-          </div>
+          <DropDownFilter
+            sortOrder={sortOrder}
+            onSortChange={handleSortChange}
+          />
           <div className="row">
             {currentProducts.length === 0 ? (
               <p>{t("results.noProducts")}</p>
