@@ -10,8 +10,8 @@ export const Navbar = () => {
   };
 
   return (
-    <nav className="navbar navbar-expand-lg navbar-light bg-light">
-      <div className="container-fluid">
+    <nav className="navbar navbar-expand-lg navbar-light bg-light mx-0">
+      <div className="container-fluid mx-0">
         <a className="navbar-brand" href="#" onClick={() => navigate("/")}>
           {t("navbar.home")}
         </a>

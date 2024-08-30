@@ -10,13 +10,13 @@ export const Home = () => {
   const { t } = useTranslation();
 
   return (
-    <div className="body">
-      <h1 className="text-center my-5">{t("home.findProduct")}</h1>
-      <section className="text-center">
+    <div className="container-fluid text-center mt-5 standard-div">
+      <h1 className="text-center my-5 pt-4">{t("home.findProduct")}</h1>
+      <section className="text-center pb-3">
         <h3>{t("home.clickToStart")}</h3>
         <button
           id="startBtn"
-          className="btn btn-secondary mt-5 px-5 py-3"
+          className="btn btn-primary mt-5 px-5 py-3"
           onClick={() => {
             actions.resetStore();
             navigate("/categories");

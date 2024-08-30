@@ -7,11 +7,9 @@ import { useTranslation } from "react-i18next";
 export const ProductCard = ({ product }) => {
   const { store } = useContext(Context);
   const { t } = useTranslation();
-
   const [imageCard, setImageCard] = useState(
     "https://via.placeholder.com/540x300"
   );
-
   useEffect(() => {
     const subcategoryId =
       localStorage.getItem("subcategory") || store.selectSubcategory;
@@ -21,7 +19,6 @@ export const ProductCard = ({ product }) => {
       setImageCard(image.url);
     }
   }, [store.selectSubcategory]);
-
   const renderStars = () => {
     const stars = [];
     for (let i = 1; i <= 5; i++) {
@@ -44,9 +41,9 @@ export const ProductCard = ({ product }) => {
 
   return (
     <div
-      key={product.id}
       id="product-item"
-      className="card mb-3 mx-auto"
+      key={product.id}
+      className="card mb-3 mx-auto product-cards"
       style={{ maxWidth: "540px" }}
     >
       <img
@@ -61,13 +58,13 @@ export const ProductCard = ({ product }) => {
           <strong>{t("productCard.remaining")}</strong> {product.stock_quantity}{" "}
           {t("productCard.units")}
         </p>
-        <p className="card-text freeship-text">
+        <p id="freeship-text" className="card-text">
           <strong>{t("productCard.freeShipping")}</strong>{" "}
           {product.is_free_shipping
             ? t("productCard.yes")
             : t("productCard.no")}
         </p>
-        <p className="card-text product-price">
+        <p id="product-price" className="card-text">
           <strong>{t("productCard.price")}</strong> {product.price} €
         </p>
         <div className="product-rating">{renderStars()}</div>

@@ -1,131 +1,254 @@
-/* ------------------------ Estilos Globales ------------------------ */
+@font-face {
+  font-family: "Titles";
+  src: url("/public/fonts/Bubble\ Love\ Demo.otf") format("truetype");
+}
+
 body {
-  background-color: #ffffff;
-  font-family: "Arial", sans-serif;
-  color: #2c3e50;
-  margin: 0;
-  padding: 0;
+  background-image: url("/src/styles/Designer.jpeg");
+  background-size: contain;
+  /* background-repeat: no-repeat; */
+  font-family: "Quicksand", serif;
+  background-attachment: fixed;
+  background-position: center;
+  padding-bottom: 10%;
 }
 
-/* ------------------------ Estilos para la Navbar ------------------------ */
-.navbar {
-  background-color: #ecf0f1;
-  padding: 10px 20px;
-  color: #2c3e50;
-  border-bottom: 2px solid #ecf0f1;
+/*--------------NAVBAR---------------*/
+nav {
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+}
+.bg-light {
+  background-color: #975824 !important;
 }
 
-.navbar-brand {
-  font-size: 1.5rem;
+a.navbar-brand {
   font-weight: bold;
-  color: #2c3e50;
 }
 
-.navbar-brand:hover {
-  color: #3498db;
-}
+/*-------------------------------------*/
 
-.navbar .form-check-label,
-.navbar .form-check-input {
-  color: #2c3e50;
-}
+/*---------------BOTONES---------------*/
 
-/* ------------------------ Estilos para Botones ------------------------ */
-button {
-  background-color: #3498db;
-  color: #ffffff;
+.btn-main {
+  background-color: #a5d6a7; /* Verde Pastel */
+  color: #000000; /* Blanco */
   border: none;
-  padding: 10px 20px;
-  font-size: 1rem;
+  padding: 15px 51px;
+  margin-top: 40px;
+  font-size: 16px;
   cursor: pointer;
   border-radius: 5px;
   transition: background-color 0.3s ease;
 }
 
-button:hover {
-  background-color: #e74c3c;
+.btn-main:hover {
+  background-color: #81c784; /* Verde más oscuro */
 }
 
-/* ------------------------ Estilos para Filtros ------------------------ */
-.filters-container {
-  background-color: #ecf0f1;
-  border: 1px solid #2c3e50;
-  border-radius: 8px;
-  padding: 15px;
-  color: #2c3e50;
-  margin-bottom: 20px;
+.btn-main:active {
+  background-color: #66bb6a; /* Verde aún más oscuro */
 }
 
-.filters-title,
-.filter-subtitle {
-  color: #2c3e50;
+.btn-main:disabled {
+  background-color: #e8f5e9; /* Verde Muy Claro */
+  color: #b0b0b0; /* Gris Claro */
+  cursor: not-allowed;
 }
 
-/* ------------------------ Estilos para Tarjetas de Productos ------------------------ */
-#product-item {
-  background-color: #ffffff;
-  border: 1px solid #ecf0f1;
-  border-radius: 8px;
-  overflow: hidden;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  transition: transform 0.2s, box-shadow 0.2s;
-  cursor: pointer;
-  margin-bottom: 20px;
+.btn-primary {
+  background-color: #226925dc;
+  border-color: #226925dc;
+  box-shadow: 2px 2px 3px #000;
+  font-weight: 400;
 }
 
-#product-item:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+.btn-primary:hover {
+  background-color: #54a158dc;
+  border-color: #54a158dc;
+  color: #202020;
+  box-shadow: 1px 1px 2px #313131;
 }
 
-#product-item .card-title {
-  font-size: 1.2rem;
+.btn-secondary {
+  background-color: #292929dc;
+  border-color: #292929dc;
+  box-shadow: 2px 2px 3px #000;
+  font-weight: 400;
+}
+
+.btn-secondary:hover {
+  background-color: #939793dc;
+  border-color: #939793dc;
+  color: #202020;
+  box-shadow: 1px 1px 2px #313131;
+}
+
+/* ----------------------FILTERS STYLES------------------------ */
+/* .filters-container {
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  background-color: #fff;
+} */
+
+.filters-title {
+  font-size: 1.25rem;
   font-weight: bold;
-  color: #2c3e50;
+  background-color: #97582452;
+  padding: 5px;
+  border-radius: 0.25rem;
+  box-shadow: 1px 1px 2px 0px #614731;
 }
 
-#product-item .card-text,
-#product-item .product-price {
-  font-size: 0.9rem;
-  color: #2c3e50;
+.filter-group {
+  margin-bottom: 20px;
 }
 
-#product-item .product-price {
-  color: #e74c3c;
+.filter-subtitle {
+  font-size: 1rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+  background-color: #97582452;
+  padding: 5px;
+  border-radius: 0.25rem;
+  box-shadow: 1px 1px 2px 0px #614731;
 }
 
-/* ------------------------ Estilos para el Rating (Estrellas) ------------------------ */
-#product-item .product-rating .star {
-  color: #ecf0f1; /* Color gris claro para estrellas vacías */
-  margin-right: 2px;
-  font-size: 1rem; /* Tamaño de las estrellas */
+.form-check-label {
+  font-size: 0.875rem;
+  font-weight: bold;
 }
 
-#product-item .product-rating .star.filled {
-  color: #3498db; /* Color azul brillante para estrellas llenas */
+.form-check-input {
+  margin-top: 0.3rem;
+  margin-right: 10px;
 }
 
-/* ------------------------ Estilos para la Paginación ------------------------ */
-.pagination {
+.product-rating {
   display: flex;
-  justify-content: center;
-  margin-top: 20px;
+  align-items: center;
+  margin-bottom: 10px;
 }
 
-.pagination .page-item {
-  margin: 0 5px;
+label.form-label {
+  font-weight: bold;
+  background-color: #97582400;
+  backdrop-filter: blur(1px);
+  padding: 2px;
+  border-radius: 0.25rem;
 }
 
-.pagination .page-link {
-  color: #3498db;
-  border: 1px solid #ecf0f1;
-  border-radius: 4px;
-  padding: 5px 10px;
-  transition: background-color 0.3s, border-color 0.3s;
+option:hover {
+  background-color: #9758246c;
+}
+/*---------------------FORMS--------------------*/
+
+div.form-group {
+  justify-self: start;
 }
 
-.pagination .page-link:hover {
-  background-color: #e74c3c;
-  border-color: #e74c3c;
-  color: #ffffff;
+.form-select:focus {
+  border-color: rgba(192, 138, 68, 0.5);
+  box-shadow: 0 0 0 0.25rem rgba(192, 138, 68, 0.5);
+}
+
+.form-check-input:checked {
+  background-color: #69bb6dde;
+  border-color: #69bb6dde;
+}
+
+.form-check-input:focus {
+  box-shadow: 0 0 0 0.25rem #69bb6d67;
+  border-color: #69bb6dde;
+}
+/* ----------------------STARS------------------------ */
+.star {
+  font-size: 20px;
+  color: #ccc; /* Color para estrellas no rellenas */
+  margin-right: 2px;
+  position: relative;
+  display: inline-block;
+  width: 20px;
+}
+
+.star.filled {
+  color: #ffcc00; /* Color para estrellas rellenas */
+}
+
+/*------------------------------------------------------*/
+
+/*--------------PAGINACIÓN-------------------*/
+
+.page-link {
+  color: #202020;
+}
+
+.active > .page-link {
+  background-color: #975824;
+  border-color: #975824;
+  border-radius: 0.25rem;
+}
+
+.page-link:focus {
+  border-color: #975824;
+  box-shadow: 0px 0px 0 0.25rem #9758246e;
+  color: whitesmoke;
+}
+
+button.page-link:hover {
+  color: #140d0177;
+}
+/*---------------------------------------------*/
+
+/*-----------------DIVS-------------------*/
+
+div.standard-div {
+  background-color: #d3a35a77;
+  border-radius: 0.25rem;
+  backdrop-filter: blur(20px);
+  box-shadow: 2px 3px 10px 2px #000;
+  width: 60%;
+}
+
+div.lateral-div {
+  background-color: #d3a35a77;
+  border-radius: 0.25rem;
+  backdrop-filter: blur(20px);
+  box-shadow: 2px 3px 10px 2px #000;
+  width: 80%;
+}
+
+.alert-danger {
+  box-shadow: 1px 1px 5px 0px #020202;
+  font-weight: bold;
+}
+
+/*-------------------TITLES/SUBTITLES---------------*/
+
+h1 {
+  font-family: "Titles";
+  /* font-weight: bold;*/
+  text-shadow: 1px 1px 0px #975824;
+}
+
+h3 {
+  text-shadow: 1px 1px 2px #000;
+  color: #202020;
+}
+
+h5 {
+  font-weight: bold !important;
+}
+
+.product-cards {
+  background-color: #d3a35a77;
+  backdrop-filter: blur(20px);
+  box-shadow: 2px 3px 10px 2px #000;
+}
+
+.card-title {
+  background-color: #9758247a;
+  padding: 5px;
+  border-radius: 0.25rem;
+  box-shadow: 1px 1px 2px 0px #614731;
 }

@@ -58,7 +58,7 @@ export const Filters = ({
   };
 
   return (
-    <div id="filters" className="filters-container p-3">
+    <div id="filters" className="filters-container p-3 lateral-div">
       <h5 className="filters-title mb-4">{t("filters.filterBy")}</h5>
 
       {/* Filtro por precio */}

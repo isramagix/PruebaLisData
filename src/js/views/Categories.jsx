@@ -2,12 +2,12 @@ import { useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Context } from "../store/AppContext";
 import { Form } from "../components/Form";
-import { useTranslation } from "react-i18next"; // Importar el hook de traducción
+import { useTranslation } from "react-i18next";
 
 export const Categories = () => {
   const { store, actions } = useContext(Context);
   const navigate = useNavigate();
-  const { t } = useTranslation(); // Inicializar el hook de traducción
+  const { t } = useTranslation();
 
   useEffect(() => {
     actions.getCategories();
@@ -19,7 +19,7 @@ export const Categories = () => {
   };
 
   return (
-    <div className="container-fluid text-center">
+    <div className="container-fluid text-center mt-5 standard-div">
       <div className="row">
         <div className="col-12">
           <h1 className="mt-5">{t("categories.title")}</h1>{" "}

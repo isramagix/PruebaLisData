@@ -64,7 +64,7 @@ describe("Debería filtar por precio", () => {
     cy.get("#product-item").each(($el) => {
       const price = parseFloat(
         $el
-          .find(".product-price")
+          .find("#product-price")
           .text()
           .replace(/[^0-9.,]/g, "")
           .replace("€", "")
@@ -77,7 +77,7 @@ describe("Debería filtar por precio", () => {
     cy.get("#product-item").each(($el) => {
       const price = parseFloat(
         $el
-          .find(".product-price")
+          .find("#product-price")
           .text()
           .replace(/[^0-9.,]/g, "")
           .replace("€", "")
@@ -126,7 +126,7 @@ describe("Debería filta por envio gratuito", () => {
   it("Debería filtrar por envío gratuito", () => {
     cy.get("#freeShipping").check();
     cy.get("#product-item").each(($el) => {
-      const shipping = $el.find(".freeship-text").text();
+      const shipping = $el.find("#freeship-text").text();
       expect(shipping).to.contain("Sí");
     });
   });
@@ -175,7 +175,7 @@ describe("Debería filtrar con el dropdown ", () => {
   it("Debería ordenar por precio ascendente", () => {
     cy.get("#sortOrder").select("price-asc");
     cy.get("#sortOrder").should("have.value", "price-asc");
-    cy.get("#product-item .product-price").then(($prices) => {
+    cy.get("#product-item #product-price").then(($prices) => {
       const prices = $prices
         .map((i, el) =>
           parseFloat(
@@ -193,7 +193,7 @@ describe("Debería filtrar con el dropdown ", () => {
   it("Debería ordenar por precio descendente", () => {
     cy.get("#sortOrder").select("price-desc");
     cy.get("#sortOrder").should("have.value", "price-desc");
-    cy.get("#product-item .product-price").then(($prices) => {
+    cy.get("#product-item #product-price").then(($prices) => {
       const prices = $prices
         .map((i, el) =>
           parseFloat(

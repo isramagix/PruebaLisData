@@ -22,7 +22,7 @@ export const Colors = () => {
   };
 
   return (
-    <div className="container-fluid text-center">
+    <div className="container-fluid text-center mt-5 standard-div">
       <div className="row">
         <div className="col-12">
           <h1 className="mt-5">{t("colors.title")}</h1>

@@ -24,8 +24,8 @@ export const Form = ({ labels, actual, route, onBack }) => {
   };
 
   return (
-    <div className="container mt-5">
-      <h2>{t("form.selectOption")}</h2>
+    <div className="container mt-4">
+      <h3>{t("form.selectOption")}</h3>
       <form onSubmit={handleSubmit}>
         <div className="form-group">
           {labels.map((lab) => (
@@ -46,16 +46,15 @@ export const Form = ({ labels, actual, route, onBack }) => {
           <div className="alert alert-danger mt-3">{t("form.warning")}</div>
         )}
 
-        <div className="mt-4">
+        <div className="mt-4 mb-4">
           <button
             type="button"
             className="btn btn-secondary me-2"
-            id="backBtn"
             onClick={onBack}
           >
             {t("form.back")}
           </button>
-          <button type="submit" className="btn btn-primary" id="nextBtn">
+          <button id="nextBtn" type="submit" className="btn btn-primary">
             {t("form.next")}
           </button>
         </div>
