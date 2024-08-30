@@ -1,19 +1,26 @@
 import "../../styles/index.css";
 import { imagesObjet } from "../../assets/images";
 import { Context } from "../store/AppContext";
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 export const ProductCard = ({ product }) => {
   const { store } = useContext(Context);
   const { t } = useTranslation();
 
-  const imageCard =
-    imagesObjet.find((image) =>
-      image.id === localStorage.getItem("subcategory")
-        ? localStorage.getItem("subcategory")
-        : store.selectSubcategory
-    )?.url || "https://via.placeholder.com/540x300";
+  const [imageCard, setImageCard] = useState(
+    "https://via.placeholder.com/540x300"
+  );
+
+  useEffect(() => {
+    const subcategoryId =
+      localStorage.getItem("subcategory") || store.selectSubcategory;
+
+    const image = imagesObjet.find((image) => image.id === subcategoryId);
+    if (image) {
+      setImageCard(image.url);
+    }
+  }, [store.selectSubcategory]);
 
   const renderStars = () => {
     const stars = [];

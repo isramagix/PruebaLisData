@@ -1,83 +1,131 @@
+/* ------------------------ Estilos Globales ------------------------ */
 body {
-  background: linear-gradient(to bottom, #ede7f6, #ffffff);
-
-  font-family: "Body", serif;
-  background-attachment: fixed;
-  background-size: auto;
-  padding-bottom: 10%;
+  background-color: #ffffff;
+  font-family: "Arial", sans-serif;
+  color: #2c3e50;
+  margin: 0;
+  padding: 0;
 }
 
-.btn-main {
-  background-color: #a5d6a7; /* Verde Pastel */
-  color: #000000; /* Blanco */
+/* ------------------------ Estilos para la Navbar ------------------------ */
+.navbar {
+  background-color: #ecf0f1;
+  padding: 10px 20px;
+  color: #2c3e50;
+  border-bottom: 2px solid #ecf0f1;
+}
+
+.navbar-brand {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #2c3e50;
+}
+
+.navbar-brand:hover {
+  color: #3498db;
+}
+
+.navbar .form-check-label,
+.navbar .form-check-input {
+  color: #2c3e50;
+}
+
+/* ------------------------ Estilos para Botones ------------------------ */
+button {
+  background-color: #3498db;
+  color: #ffffff;
   border: none;
-  padding: 15px 51px;
-  margin-top: 40px;
-  font-size: 16px;
+  padding: 10px 20px;
+  font-size: 1rem;
   cursor: pointer;
   border-radius: 5px;
   transition: background-color 0.3s ease;
 }
 
-.btn-main:hover {
-  background-color: #81c784; /* Verde más oscuro */
+button:hover {
+  background-color: #e74c3c;
 }
 
-.btn-main:active {
-  background-color: #66bb6a; /* Verde aún más oscuro */
-}
-
-.btn-main:disabled {
-  background-color: #e8f5e9; /* Verde Muy Claro */
-  color: #b0b0b0; /* Gris Claro */
-  cursor: not-allowed;
-}
-/* ----------------------FILTERS STYLES------------------------ */
+/* ------------------------ Estilos para Filtros ------------------------ */
 .filters-container {
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  background-color: #fff;
-}
-
-.filters-title {
-  font-size: 1.25rem;
-  font-weight: bold;
-}
-
-.filter-group {
+  background-color: #ecf0f1;
+  border: 1px solid #2c3e50;
+  border-radius: 8px;
+  padding: 15px;
+  color: #2c3e50;
   margin-bottom: 20px;
 }
 
+.filters-title,
 .filter-subtitle {
-  font-size: 1rem;
+  color: #2c3e50;
+}
+
+/* ------------------------ Estilos para Tarjetas de Productos ------------------------ */
+#product-item {
+  background-color: #ffffff;
+  border: 1px solid #ecf0f1;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s, box-shadow 0.2s;
+  cursor: pointer;
+  margin-bottom: 20px;
+}
+
+#product-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+}
+
+#product-item .card-title {
+  font-size: 1.2rem;
   font-weight: bold;
-  margin-bottom: 10px;
+  color: #2c3e50;
 }
 
-.form-check-label {
-  font-size: 0.875rem;
+#product-item .card-text,
+#product-item .product-price {
+  font-size: 0.9rem;
+  color: #2c3e50;
 }
 
-.form-check-input {
-  margin-top: 0.3rem;
-  margin-right: 10px;
+#product-item .product-price {
+  color: #e74c3c;
 }
 
-.product-rating {
-  display: flex;
-  align-items: center;
-  margin-bottom: 10px;
-}
-/* ----------------------STARS------------------------ */
-.star {
-  font-size: 20px;
-  color: #ccc; /* Color para estrellas no rellenas */
+/* ------------------------ Estilos para el Rating (Estrellas) ------------------------ */
+#product-item .product-rating .star {
+  color: #ecf0f1; /* Color gris claro para estrellas vacías */
   margin-right: 2px;
-  position: relative;
-  display: inline-block;
-  width: 20px;
+  font-size: 1rem; /* Tamaño de las estrellas */
 }
 
-.star.filled {
-  color: #ffcc00; /* Color para estrellas rellenas */
+#product-item .product-rating .star.filled {
+  color: #3498db; /* Color azul brillante para estrellas llenas */
+}
+
+/* ------------------------ Estilos para la Paginación ------------------------ */
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.pagination .page-item {
+  margin: 0 5px;
+}
+
+.pagination .page-link {
+  color: #3498db;
+  border: 1px solid #ecf0f1;
+  border-radius: 4px;
+  padding: 5px 10px;
+  transition: background-color 0.3s, border-color 0.3s;
+}
+
+.pagination .page-link:hover {
+  background-color: #e74c3c;
+  border-color: #e74c3c;
+  color: #ffffff;
 }
