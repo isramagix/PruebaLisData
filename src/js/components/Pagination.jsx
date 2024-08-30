@@ -4,7 +4,7 @@ export const Pagination = ({ currentPage, totalPages, onPageChange }) => {
   const { t } = useTranslation();
 
   return (
-    <nav aria-label="Page navigation">
+    <nav id="paginator" aria-label="Page navigation">
       <ul className="pagination">
         <li className="page-item">
           <button

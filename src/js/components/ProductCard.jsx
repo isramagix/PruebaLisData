@@ -38,6 +38,7 @@ export const ProductCard = ({ product }) => {
   return (
     <div
       key={product.id}
+      id="product-item"
       className="card mb-3 mx-auto"
       style={{ maxWidth: "540px" }}
     >
@@ -53,13 +54,13 @@ export const ProductCard = ({ product }) => {
           <strong>{t("productCard.remaining")}</strong> {product.stock_quantity}{" "}
           {t("productCard.units")}
         </p>
-        <p className="card-text">
+        <p className="card-text freeship-text">
           <strong>{t("productCard.freeShipping")}</strong>{" "}
           {product.is_free_shipping
             ? t("productCard.yes")
             : t("productCard.no")}
         </p>
-        <p className="card-text">
+        <p className="card-text product-price">
           <strong>{t("productCard.price")}</strong> {product.price} €
         </p>
         <div className="product-rating">{renderStars()}</div>

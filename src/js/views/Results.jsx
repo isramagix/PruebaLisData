@@ -78,7 +78,7 @@ export const Results = () => {
         return b.price - a.price;
       case "rating":
       default:
-        return b.average_rating - a.average_rating; // Orden por valoración descendente
+        return b.average_rating - a.average_rating;
     }
   });
 
@@ -121,7 +121,6 @@ export const Results = () => {
   return (
     <div className="container-fluid mt-5">
       <h1 className="text-center">{t("results.title")}</h1>{" "}
-      {/* Utilizar la traducción */}
       <div className="row mt-5">
         <div className="col-md-3">
           <Filters
@@ -135,14 +134,14 @@ export const Results = () => {
             onStockQuantityChange={handleStockQuantityChange}
           />
           <button className="btn btn-secondary mt-3" onClick={handleBackHome}>
-            {t("results.backToHome")} {/* Utilizar la traducción */}
+            {t("results.backToHome")}
           </button>
         </div>
 
         <div className="col-md-9">
           <div className="mb-4">
             <label htmlFor="sortOrder" className="form-label">
-              {t("results.sortBy")} {/* Utilizar la traducción */}
+              {t("results.sortBy")}
             </label>
             <select
               id="sortOrder"

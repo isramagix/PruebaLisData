@@ -1,5 +1,5 @@
 import "../../styles/index.css";
-import { useTranslation } from "react-i18next"; // Importar el hook de traducción
+import { useTranslation } from "react-i18next";
 
 export const Filters = ({
   selectedPriceRanges,
@@ -11,7 +11,7 @@ export const Filters = ({
   onRatingChange,
   onStockQuantityChange,
 }) => {
-  const { t } = useTranslation(); // Inicializar el hook de traducción
+  const { t } = useTranslation();
 
   const priceRanges = [
     { label: t("filters.priceRanges.0-100"), value: "0-100" },
@@ -58,7 +58,7 @@ export const Filters = ({
   };
 
   return (
-    <div className="filters-container p-3">
+    <div id="filters" className="filters-container p-3">
       <h5 className="filters-title mb-4">{t("filters.filterBy")}</h5>
 
       {/* Filtro por precio */}
