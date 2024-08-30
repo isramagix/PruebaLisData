@@ -132,7 +132,7 @@ describe("Debería filta por envio gratuito", () => {
   });
 });
 
-describe("Debería filta por stock ", () => {
+describe("Debería filtar por stock ", () => {
   beforeEach(() => {
     cy.visit("http://localhost:5173/results");
     cy.window().then((win) => {
@@ -150,6 +150,62 @@ describe("Debería filta por stock ", () => {
     cy.get("#product-item").each(($el) => {
       const stock = parseInt($el.find(".card-text").text().match(/\d+/)[0]);
       expect(stock).to.be.within(51, 100);
+    });
+  });
+});
+describe("Debería filtrar con el dropdown ", () => {
+  beforeEach(() => {
+    cy.visit("http://localhost:5173/results");
+    cy.window().then((win) => {
+      win.localStorage.setItem("category", "1");
+    });
+    cy.window().then((win) => {
+      win.localStorage.setItem("subcategory", "1");
+    });
+    cy.window().then((win) => {
+      win.localStorage.setItem("color", "1");
+    });
+  });
+  it("Debería existir el dropdown", () => {
+    cy.get("#sortOrder").should("exist");
+  });
+  it("Debería iniciarse con el orden por valoración", () => {
+    cy.get("#sortOrder").should("have.value", "rating");
+  });
+  it("Debería ordenar por precio ascendente", () => {
+    cy.get("#sortOrder").select("price-asc");
+    cy.get("#sortOrder").should("have.value", "price-asc");
+    cy.get("#product-item .product-price").then(($prices) => {
+      const prices = $prices
+        .map((i, el) =>
+          parseFloat(
+            Cypress.$(el)
+              .text()
+              .replace(/[^0-9.,]/g, "")
+              .replace(",", ".")
+          )
+        )
+        .get();
+      const sortedPrices = [...prices].sort((a, b) => a - b);
+      expect(prices).to.deep.equal(sortedPrices);
+    });
+  });
+  it("Debería ordenar por precio descendente", () => {
+    cy.get("#sortOrder").select("price-desc");
+    cy.get("#sortOrder").should("have.value", "price-desc");
+    cy.get("#product-item .product-price").then(($prices) => {
+      const prices = $prices
+        .map((i, el) =>
+          parseFloat(
+            Cypress.$(el)
+              .text()
+              .replace(/[^0-9.,]/g, "")
+              .replace(",", ".")
+          )
+        )
+        .get();
+      const sortedPrices = [...prices].sort((a, b) => b - a);
+      expect(prices).to.deep.equal(sortedPrices);
     });
   });
 });
