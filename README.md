@@ -2,7 +2,7 @@
 
 Este proyecto es un recomendador de productos que realiza un cuestionario interactivo al usuario y, en función de sus respuestas, muestra artículos recomendados. El cuestionario es dinámico y se adapta a las decisiones del usuario. Además, permite el cambio de idioma entre inglés y español y ofrece varios filtros para personalizar los resultados.
 
-![Vista Previa del Proyecto](ImagenesReadme/Home.png)
+![Vista Previa del Proyecto](ImagesReadme/Home.png)
 
 ## Características Principales
 
@@ -10,9 +10,9 @@ Este proyecto es un recomendador de productos que realiza un cuestionario intera
 - **Cambio de Idioma**: Interfaz disponible en inglés y español.
 - **Filtros Personalizados**: Filtros avanzados para refinar los resultados de búsqueda.
 
-![Cuestionario Dinámico](ImagenesReadme/Form.png)
+![Cuestionario Dinámico](ImagesReadme/Form.png)
 
-![Vista de resultados](ImagenesReadme/Results.png)
+![Vista de resultados](ImagesReadme/Results.png)
 
 ## Requisitos
 
